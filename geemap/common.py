@@ -1395,13 +1395,16 @@ def ee_export_image_collection(ee_object, out_dir, scale=None, crs=None, region=
         print("Total number of images: {}\n".format(count))
 
         for i in range(0, count):
-            image = ee.Image(ee_object.toList(count).get(i))
-            name = image.get('system:index').getInfo() + '.tif'
-            filename = os.path.join(os.path.abspath(out_dir), name)
-            print('Exporting {}/{}: {}'.format(i+1, count, name))
-            ee_export_image(image, filename=filename, scale=scale,
-                            crs=crs, region=region, file_per_band=file_per_band)
-            print('\n')
+            try:
+                image = ee.Image(ee_object.toList(count).get(i))
+                name = image.get('system:index').getInfo() + '.tif'
+                filename = os.path.join(os.path.abspath(out_dir), name)
+                print('Exporting {}/{}: {}'.format(i+1, count, name))
+                ee_export_image(image, filename=filename, scale=scale,
+                                crs=crs, region=region, file_per_band=file_per_band)
+                print('\n')
+            except Exception as e:
+               print(e)
 
     except Exception as e:
         print(e)
