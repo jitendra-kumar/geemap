@@ -1310,7 +1310,7 @@ def ee_export_image(ee_object, filename, scale=None, crs=None, region=None, file
         print('The ee_object must be an ee.Image.')
         return
 
-	if len(ee_object.bandNames().getInfo()) <= 0:
+    if len(ee_object.bandNames().getInfo()) <= 0:
 		print('Image has no bands. Skip export.')
 		return
 
