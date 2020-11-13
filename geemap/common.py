@@ -1395,7 +1395,7 @@ def ee_export_image_collection(ee_object, out_dir, scale=None, crs=None, region=
         print("Total number of images: {}\n".format(count))
 
         for i in range(0, count):
-            try:
+            if len(ee.Image(ee_object.toList(count).get(i)).bandNames().getInfo()) > 0:
                 image = ee.Image(ee_object.toList(count).get(i))
                 name = image.get('system:index').getInfo() + '.tif'
                 filename = os.path.join(os.path.abspath(out_dir), name)
@@ -1403,8 +1403,8 @@ def ee_export_image_collection(ee_object, out_dir, scale=None, crs=None, region=
                 ee_export_image(image, filename=filename, scale=scale,
                                 crs=crs, region=region, file_per_band=file_per_band)
                 print('\n')
-            except Exception as e:
-               print(e)
+            else: 
+               print("Skipping export for image with no bands.")
 
     except Exception as e:
         print(e)
