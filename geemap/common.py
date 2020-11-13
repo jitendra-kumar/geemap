@@ -1311,8 +1311,8 @@ def ee_export_image(ee_object, filename, scale=None, crs=None, region=None, file
         return
 
     if len(ee_object.bandNames().getInfo()) <= 0:
-		print('Image has no bands. Skip export.')
-		return
+        print('Image has no bands. Skip export.')
+        return
 
     filename = os.path.abspath(filename)
     basename = os.path.basename(filename)
